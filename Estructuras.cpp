@@ -2,7 +2,7 @@
 #include "lista.h"
 
 struct Usuario {
-	string id, nombre,apellidos, sexo, edad, tipoUsuario, Clave;
+	string id, nombre,apellidos, sexo, edad, tipoUsuario, clave;
 };
 
 struct Administrador {
@@ -43,13 +43,13 @@ struct VueloEspecifico{
 };
 class Estructuras{
 	private:
-		Lista<Usuario> usuarios;
+//		Lista<Usuario> usuarios;
 		Lista<Administrador> administradores;
 		Lista<UsAerolinea> usAerolineas;	
 		Lista<UsCliente> usCliente;
 		Lista<Pasajero> pasajeros;
 		Lista<Silla> sillas;
-		Lista<Vuelo> vuelos;
+//		Lista<Vuelo> vuelos;
 		Lista<VueloPlaneado> vuelosPlaneados;
 		Lista<VueloEspecifico> vuelosEspecificos;
 		int posicionAux;
@@ -57,17 +57,17 @@ class Estructuras{
     	Estructuras(){
 		}
 		void insertarUsAerolinea(UsAerolinea, int pos);
-		void insertarAdministradores(Administradores administrador, int pos);
+		void insertarAdministradores(Administrador administrador, int pos);
 		void InsertarUsCliente (UsCliente cliente, int pos);
 		//void InsertarUsuarios(Usuarios usuario, int pos);
 		//void InsertarVuelo(Vuelo vuelo, int pos);
 		void InsertarPasajero(Pasajero pasajero, int pos);
-		void InsertarVueloPlaneado(VueloPlanedo vueloplan, int pos);
+		void InsertarVueloPlaneado(VueloPlaneado vueloplan, int pos);
 		void InsertarVueloEspecifico(VueloEspecifico vueloesp, int pos);
 		void EliminarVueloPlaneado(string codigo);
 		void EliminarVueloEspecifico(string codigo);
 		void EliminarPasajero(string nombre, string );
-	    Administradores* AsignarAdministrador(string dato);
+	  /*  Administrador* AsignarAdministrador(string dato);
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
         Entrenadores* AsignarEntrenador(string dato, int op);
@@ -77,32 +77,32 @@ class Estructuras{
 		Usuarios* AsignarUsuario(string en);
 		Estadios* ObtenerEstadio(string dato, int pos, int op);
 		Equipos* ObtenerEquipo(string dato, int op, int pos);
-		Grupos* ObtenerGrupo(string dato, int pos, int op);
-		int AuxPos();
+		Grupos* ObtenerGrupo(string dato, int pos, int op);*/
+	/*	int AuxPos();
 		int faseDos();
-		int finTorneo();
+		int finTorneo();*/
 };
-
-	void Estructuras::insertarEntrenadores(Entrenadores director, int pos){
-		directores.insertar_pos(director, pos);
-		cout<<"El tamaño de la lista de entrenadores es: "<<directores.tamano_lista()<<endl;
+	void Estructuras::insertarUsAerolinea(UsAerolinea usaerolinea, int pos){
+		usAerolineas.insertar_pos(usaerolinea, pos);
+		cout<<"El tamaño de la lista de entrenadores es: "<<usAerolineas.tamano_lista()<<endl;
 	}
 	
-	void Estructuras::insertarAdministradores(Administradores administrador, int pos){
+	void Estructuras::InsertarUsCliente(UsCliente uscliente, int pos){
+		usCliente.insertar_pos(uscliente, pos);
+		cout<<"El tamaño de la lista de entrenadores es: "<<usCliente.tamano_lista()<<endl;
+	}
+	
+	void Estructuras::insertarAdministradores(Administrador administrador, int pos){
 		administradores.insertar_pos(administrador, pos);
 		cout<<"El tamaño de la lista de Administradores es: "<<administradores.tamano_lista()<<endl;
 	}
 	
+/*	
 	void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
 		listaJugadores.insertar_pos(jugador, pos);
 		cout<<"El tamaño de la lista de jugadores es: "<<listaJugadores.tamano_lista()<<endl;
 	}
-	
-	
-	void Estructuras::InsertarUsuarios(Usuarios usuario, int pos){
-		usuarios.insertar_pos(usuario, pos);
-		cout<<"El tamaño de la lista de usuarios es: "<<usuarios.tamano_lista()<<endl;
-	}
+
 	
 	void Estructuras::InsertarPaices(Equipos eq, int pos){
 		listaEquipos.insertar_pos(eq,pos);
@@ -137,8 +137,8 @@ class Estructuras{
 	void Estructuras::InsertarPartidos2(PartidosF2 partido, int pos){
 		listaPartidos2.insertar_pos(partido, pos);
 		cout<<"El tamaño de la lista de Partidos es: "<<listaPartidos2.tamano_lista()<<endl;
-	}
-	
+	}*/
+	/*
 	void Estructuras::EliminarEquipo(string equipo){
 		int u=1;
 		Equipos eq;
@@ -537,6 +537,6 @@ class Estructuras{
 		int aux;
 		aux= listaPartidos2.tamano_lista();
 		return aux;
-	}
+	}*/
 
 

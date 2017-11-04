@@ -61,10 +61,10 @@ void ManejoArchivos::cargarVuelosEspecificos(){
 			string numSillasDispo(dato5);
 			string fecha(dato6);
 			int numSillasDisp = atoi(numSillasDispo.c_str());
-			vueloespecifico->vuelo.codigo= codigo;
-			vueloespecifico->vuelo.origen= origen;
-			vueloespecifico->vuelo.destino= destino;
-			vueloespecifico->vuelo.precio= precio;
+			vueloespecifico.vuelo->codigo= codigo;
+			vueloespecifico.vuelo->origen= origen;
+			vueloespecifico.vuelo->destino= destino;
+			vueloespecifico.vuelo->precio= precio;
 			vueloespecifico.numSillasDisp= numSillasDisp;
 			vueloespecifico.fecha= fecha;
 			cout<<vueloespecifico->vuelo.codigo<<endl;
@@ -193,4 +193,57 @@ void ManejoArchivos::cargarVuelosEspecificos(){
      j=0;
      getch (); 
 	}
+	void ManejoArchivos::cargarUsAerolinea(){
+		ifstream salida;
+		salida.open ("administradores.txt", ios::in); 
+     	if (salida.fail()){
+      		cout<<"error al abrir el archivo :( "<<endl;
+      		getch();         
+     	}
+     	else{
+         	salida>>dato1;
+         while (!salida.eof()) {
+         	salida>>dato2;
+            salida>>dato3;
+			salida>>dato4; 
+			salida>>dato5;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+			salida>>dato6;
+			salida>>dato7;
+			salida>>dato8;
+			string id(dato1);
+			string nom(dato2);
+			string ape(dato3);
+			string sex(dato4);
+			string edad(dato5);
+			string tipousuario(dato6);
+			string clave(dato7);
+			UsAerolinea usaerolinea;
+			usaerolinea->usuario.id =id;
+			usaerolinea->usuario.nombre= nom;
+			usaerolinea->usuario.apellidos= ape;
+			usaerolinea->usuario.sexo= sex;
+			usaerolinea->usuario.edad= edad:
+			usaerolinea->usuario.tipoUsuario= tipousuario;
+			usaerolinea->usuario.clave= clave;
+			usaerolinea.usuario= Es.insertarUsAerolinea()
+			administrador.usuario=Es.AsignarUsuario(administrador.id);
+			cout<<administrador.id<<endl;
+			if(administrador.usuario==NULL){
+				cout<<"el Administrador no tiene usuario"<<endl;
+			}
+			else{
+				cout<<administrador.usuario->id<<" "<<administrador.usuario->tipoUsuario<<endl;
+			}
+			Es.insertarAdministradores(administrador,j+1);
+            x=x+1;
+            salida>>dato1;
+         }
+         cout<<"los Entrenadores son "<<x<<endl;
+         salida.close (); 
+     }
+     x=0;
+     j=0;
+     getch ();
+	}
+	
 	
