@@ -1,4 +1,4 @@
-#include "separador.h"
+//#include "separador.h"
 
 #define MAX_ARGS 90
 #define MAX_CADENA 100
@@ -27,93 +27,137 @@ class ManejoArchivos{
     		Es=Est;
 		}
 		void cargarUsuario();
-    	void cargarAministrador();
-    	void cargarUsCliente();
+    	void cargarCliente();
     	void cargarUsAerolinea();
-    	void cargarVuelosEspecificos();
     	void cargarVuelosPlaneados();
+    	void cargarVuelosEspecificos();
+
     	void cargarPasajeros();
     	Estructuras* retornarObjeto();
     	string AsignarGrupo();
 };
-void ManejoArchivos::cargarVuelosEspecificos(){
-		ifstream salida; //para leer lo que esta en el archivo con una funcion que llame salida
-		salida.open ("vuelosespecificos.txt", ios::in); //abrimos el archivo
-     	if (salida.fail()){ //if por si ocurre un error
+
+	void ManejoArchivos::cargarUsuario(){
+			ifstream salida;
+			salida.open ("Usuarios.txt", ios::in); 
+	     	if (salida.fail()){
+	      		cout<<"error al abrir el archivo :( "<<endl;
+	      		getch();         
+	     	}
+	     	else{
+	         	salida>>dato1;
+	         while (!salida.eof()) {
+	         	salida>>dato2;
+	            salida>>dato3; 
+				string id(dato1);
+				string tip(dato2);
+				string cla(dato3);
+				Usuario usuario;
+				usuario.id=id;
+				usuario.tipoUsuario = tip;
+				usuario.clave= cla;
+				int j=1;
+				Es.insertarUsuario(usuario,j);
+	            x=x+1;
+	            j=j+1;
+	            salida>>dato1;
+	         }
+	         cout<<"los Usuarios son "<<x<<endl;
+	         salida.close (); 
+	     }
+	     x=0;
+	     j=0;
+	     getch ();
+		}
+	void ManejoArchivos::cargarCliente(){
+		ifstream salida;
+		salida.open ("clientes.txt", ios::in); 
+     	if (salida.fail()){
       		cout<<"error al abrir el archivo :( "<<endl;
       		getch();         
      	}
      	else{
-     		int h=1;
-         	salida>>dato1;//aqui leemos primero el nombre del lobro antes del white por lo siguiente:
-         while (!salida.eof()) //(esto significa que recorre el archivo hasta el final)
-         {
-            salida>>dato2; 
-			salida>>dato3;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
-			salida>>dato4;
-			salida>>dato5;
-			salida>>dato6;
-			VueloEspecifico vueloespecifico;
-			string codigo(dato1);
-			string origen(dato2);
-			string destino(dato3);
-			string precio(dato4);
-			string numSillasDispo(dato5);
-			string fecha(dato6);
-			int numSillasDisp = atoi(numSillasDispo.c_str());
-			vueloespecifico.vuelo->codigo= codigo;
-			vueloespecifico.vuelo->origen= origen;
-			vueloespecifico.vuelo->destino= destino;
-			vueloespecifico.vuelo->precio= precio;
-			vueloespecifico.numSillasDisp= numSillasDisp;
-			vueloespecifico.fecha= fecha;
-			cout<<vueloespecifico->vuelo.codigo<<endl;
- 		/*	equipo.director=Es.AsignarEntrenador(equipo.pais, 1);
- 			if(equipo.director==NULL){
- 				cout<<"el equipo no tiene director"<<endl;
-			 }
-			 else{
-			 	cout<<equipo.director->nombres<<" "<<equipo.director->apellidos<<endl;	
-			 }*/
-		/*	 int pos=1;
-			 int i=1;
-			 while(pos <= posicionAux){
-			 	Jugadores* juga= new Jugadores;
-			 	juga=Es.AsignarJugador(equipo.pais,pos,1);
-			 	if(juga==NULL){
-			 		cout<<"no hay jugadores"<<endl;
-			 		pos=posicionAux+1;
-				 }
-				 else{
-				 	Jugadores jugador;
-			 		jugador= *juga;
-			 		equipo.jugadores.insertar_pos(jugador,i);
-			 		pos=Es.AuxPos()+1;
-			 		i++;
-				 }
-			 }
-			 if(equipo.jugadores.lista_vacia()){
-			 	cout<<"el equipo no tiene jugadores"<<endl;
-			 }
-			 else{
-			 	Jugadores jug= equipo.jugadores.obtenerDato(1);
-			 	cout<<jug.nombres<<" "<<jug.apellidos<<endl;
-			 	Jugadores jug2= equipo.jugadores.obtenerDato(2);
-			 	cout<<jug2.nombres<<" "<<jug2.apellidos<<endl;
-			 }
-			 Es.InsertarPaices(equipo,h);
+         	salida>>dato1;
+         while (!salida.eof()) {
+         	salida>>dato2;
+            salida>>dato3;
+			salida>>dato4; 
+			salida>>dato5;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+			string id(dato1);
+			string nom(dato2);
+			string ape(dato3);
+			string sex(dato4);
+			string ed(dato5);
+			Cliente cliente;
+			cliente.id =id;
+			cliente.nombre= nom;
+			cliente.apellidos= ape;
+			cliente.sexo= sex;
+			cliente.edad= ed;
+			cliente.usuario=Es.AsignarUsuario(cliente.id);
+			cout<<cliente.id<<endl;
+			if(cliente.usuario==NULL){
+				cout<<"el cliente no tiene usuario"<<endl;
+			}
+			else{
+				cout<<cliente.usuario->id<<" "<<cliente.usuario->tipoUsuario<<endl;
+			}
+			Es.insertarCliente(cliente,j+1);
             x=x+1;
-            h=h+1;
             salida>>dato1;
-         }*/
-         cout<<"los vuelos especificos son "<<x<<endl;
-         salida.close (); //se cierra la funcion
+         }
+         cout<<"los Clientes son "<<x<<endl;
+         salida.close (); 
      }
      x=0;
      j=0;
-     getch (); 
+     getch ();
 	}
 	
+	void ManejoArchivos::cargarUsAerolinea(){
+		ifstream salida;
+		salida.open ("usAerolineas.txt", ios::in); 
+     	if (salida.fail()){
+      		cout<<"error al abrir el archivo :( "<<endl;
+      		getch();         
+     	}
+     	else{
+         	salida>>dato1;
+         while (!salida.eof()) {
+         	salida>>dato2;
+            salida>>dato3;
+			salida>>dato4; 
+			salida>>dato5;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+			string id(dato1);
+			string nom(dato2);
+			string ape(dato3);
+			string sex(dato4);
+			string edad(dato5);
+			UsAerolinea usaerolinea;
+			usaerolinea.id =id;
+			usaerolinea.nombre= nom;
+			usaerolinea.apellidos= ape;
+			usaerolinea.sexo= sex;
+			usaerolinea.edad= edad;
+			usaerolinea.usuario=Es.AsignarUsuario(usaerolinea.id);
+			cout<<usaerolinea.id<<endl;
+			if(usaerolinea.usuario==NULL){
+				cout<<"el Usuario de Aerolinea no tiene usuario"<<endl;
+			}
+			else{
+				cout<<usaerolinea.usuario->id<<" "<<usaerolinea.usuario->tipoUsuario<<endl;
+			}
+			Es.insertarusAerolinea(usaerolinea,j+1);
+            x=x+1;
+            salida>>dato1;
+         }
+         cout<<"los Usuarios de aerolineas son "<<x<<endl;
+         salida.close (); 
+     }
+     x=0;
+     j=0;
+     getch ();
+	} 
 	void ManejoArchivos::cargarVuelosPlaneados(){
 		ifstream salida; //para leer lo que esta en el archivo con una funcion que llame salida
 		salida.open ("vuelosplaneados.txt", ios::in); //abrimos el archivo
@@ -131,6 +175,7 @@ void ManejoArchivos::cargarVuelosEspecificos(){
 			salida>>dato4;
 			salida>>dato5;
 			salida>>dato6;
+			salida>>dato7;
 			VueloPlaneado vueloplaneado;
 			string codigo(dato1);
 			string origen(dato2);
@@ -140,14 +185,14 @@ void ManejoArchivos::cargarVuelosEspecificos(){
 			string horainicio(dato6);
 			string horafin(dato7);
 			int precio = atoi(precios.c_str());
-			vueloplaneado->vuelo.codigo= codigo;
-			vueloplaneado->vuelo.origen= origen;
-			vueloplaneado->vuelo.destino= destino;
-			vueloplaneado->vuelo.precio= precio;
+			vueloplaneado.codigo= codigo;
+			vueloplaneado.origen= origen;
+			vueloplaneado.destino= destino;
+			vueloplaneado.precio= precio;
 			vueloplaneado.dia= dia;
 			vueloplaneado.horaInicio= horainicio;
 			vueloplaneado.horaFin= horafin;
-			cout<<vueloplaneado->vuelo.codigo<<endl;
+			cout<< "codigo: "<< vueloplaneado.codigo<<endl;
  		/*	equipo.director=Es.AsignarEntrenador(equipo.pais, 1);
  			if(equipo.director==NULL){
  				cout<<"el equipo no tiene director"<<endl;
@@ -155,37 +200,54 @@ void ManejoArchivos::cargarVuelosEspecificos(){
 			 else{
 			 	cout<<equipo.director->nombres<<" "<<equipo.director->apellidos<<endl;	
 			 }*/
-		/*	 int pos=1;
-			 int i=1;
-			 while(pos <= posicionAux){
-			 	Jugadores* juga= new Jugadores;
-			 	juga=Es.AsignarJugador(equipo.pais,pos,1);
-			 	if(juga==NULL){
-			 		cout<<"no hay jugadores"<<endl;
-			 		pos=posicionAux+1;
-				 }
-				 else{
-				 	Jugadores jugador;
-			 		jugador= *juga;
-			 		equipo.jugadores.insertar_pos(jugador,i);
-			 		pos=Es.AuxPos()+1;
-			 		i++;
-				 }
-			 }
-			 if(equipo.jugadores.lista_vacia()){
-			 	cout<<"el equipo no tiene jugadores"<<endl;
-			 }
-			 else{
-			 	Jugadores jug= equipo.jugadores.obtenerDato(1);
-			 	cout<<jug.nombres<<" "<<jug.apellidos<<endl;
-			 	Jugadores jug2= equipo.jugadores.obtenerDato(2);
-			 	cout<<jug2.nombres<<" "<<jug2.apellidos<<endl;
-			 }
-			 Es.InsertarPaices(equipo,h);
+			 Es.insertarVueloPlaneado(vueloplaneado,h);
             x=x+1;
             h=h+1;
             salida>>dato1;
-         }*/
+         }
+         cout<<"los vuelos planeados son "<<x<<endl;
+         salida.close (); //se cierra la funcion
+     }
+     x=0;
+     j=0;
+     getch (); 
+	}
+
+	void ManejoArchivos::cargarVuelosEspecificos(){
+		ifstream salida; //para leer lo que esta en el archivo con una funcion que llame salida
+		salida.open ("vuelosespecificos.txt", ios::in); //abrimos el archivo
+     	if (salida.fail()){ //if por si ocurre un error
+      		cout<<"error al abrir el archivo :( "<<endl;
+      		getch();         
+     	}
+     	else{
+     		int h=1;
+         	salida>>dato1;//aqui leemos primero el nombre del lobro antes del white por lo siguiente:
+         while (!salida.eof()) //(esto significa que recorre el archivo hasta el final)
+         {
+            salida>>dato2; 
+			salida>>dato3;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+			VueloEspecifico vueloespecifico;
+			string codigo(dato1);
+			string numSillasDispo(dato2);
+			string fecha(dato3);
+			int numSillasDisp = atoi(numSillasDispo.c_str());
+			vueloespecifico.codigo= codigo;
+			vueloespecifico.numSillasDisp= numSillasDisp;
+			vueloespecifico.fecha= fecha;
+			cout<< "codigo: "<< vueloespecifico.codigo<<endl;
+ 			vueloespecifico.vueloplan=Es.AsignarvueloPlan(vueloespecifico.codigo);
+ 			if(vueloespecifico.vueloplan==NULL){
+ 				cout<<"el vuelo especifico no tiene vuelo planeado"<<endl;
+			 }
+			 else{
+			 	cout<<vueloespecifico.vueloplan->codigo<<" "<<vueloespecifico.vueloplan->destino<<" "<<vueloespecifico.vueloplan->origen<<" "<<vueloespecifico.vueloplan->dia<<" "<<vueloespecifico.vueloplan->horaInicio<<" "<<vueloespecifico.vueloplan->horaFin<<" "<<vueloespecifico.vueloplan->precio<<endl;	
+			 }
+			 Es.insertarVueloEspecifico(vueloespecifico,h);
+            x=x+1;
+            h=h+1;
+            salida>>dato1;
+         }
          cout<<"los vuelos especificos son "<<x<<endl;
          salida.close (); //se cierra la funcion
      }
@@ -193,57 +255,9 @@ void ManejoArchivos::cargarVuelosEspecificos(){
      j=0;
      getch (); 
 	}
-	void ManejoArchivos::cargarUsAerolinea(){
-		ifstream salida;
-		salida.open ("administradores.txt", ios::in); 
-     	if (salida.fail()){
-      		cout<<"error al abrir el archivo :( "<<endl;
-      		getch();         
-     	}
-     	else{
-         	salida>>dato1;
-         while (!salida.eof()) {
-         	salida>>dato2;
-            salida>>dato3;
-			salida>>dato4; 
-			salida>>dato5;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
-			salida>>dato6;
-			salida>>dato7;
-			salida>>dato8;
-			string id(dato1);
-			string nom(dato2);
-			string ape(dato3);
-			string sex(dato4);
-			string edad(dato5);
-			string tipousuario(dato6);
-			string clave(dato7);
-			UsAerolinea usaerolinea;
-			usaerolinea->usuario.id =id;
-			usaerolinea->usuario.nombre= nom;
-			usaerolinea->usuario.apellidos= ape;
-			usaerolinea->usuario.sexo= sex;
-			usaerolinea->usuario.edad= edad:
-			usaerolinea->usuario.tipoUsuario= tipousuario;
-			usaerolinea->usuario.clave= clave;
-			usaerolinea.usuario= Es.insertarUsAerolinea()
-			administrador.usuario=Es.AsignarUsuario(administrador.id);
-			cout<<administrador.id<<endl;
-			if(administrador.usuario==NULL){
-				cout<<"el Administrador no tiene usuario"<<endl;
-			}
-			else{
-				cout<<administrador.usuario->id<<" "<<administrador.usuario->tipoUsuario<<endl;
-			}
-			Es.insertarAdministradores(administrador,j+1);
-            x=x+1;
-            salida>>dato1;
-         }
-         cout<<"los Entrenadores son "<<x<<endl;
-         salida.close (); 
-     }
-     x=0;
-     j=0;
-     getch ();
-	}
+	
+	
+
+
 	
 	

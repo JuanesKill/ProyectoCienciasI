@@ -2,51 +2,47 @@
 #include "lista.h"
 
 struct Usuario {
-	string id, nombre,apellidos, sexo, edad, tipoUsuario, clave;
-};
-
-struct Administrador {
-	string id;
-	Usuario* usuario;
+	string id, tipoUsuario, clave;
 };
 
 struct UsAerolinea {
-	string id;
+	string id,	nombre,apellidos, sexo, edad;
 	Usuario* usuario;
 };
 
-struct UsCliente {
-	string id;
+struct Cliente {
+	string id,	nombre,apellidos, sexo, edad;
 	Usuario* usuario;
 };
 
 struct Pasajero {
 	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
 };
+
 struct Silla{
 	string id,estado;
 };
-struct Vuelo{
+/*struct Vuelo{
 	string codigo, origen, destino, precio;
 	Lista<Silla> sillas;
-};
+};*/
 struct VueloPlaneado {
-	string dia, horaInicio, horaFin;
-	Vuelo* vuelo;
+	string codigo, origen, destino, precio, dia, horaInicio, horaFin;
+	Lista<Silla> sillas;
+	
 };
 
 struct VueloEspecifico{
-	string  fecha;
+	string  codigo, fecha;
 	int numSillasDisp;
 	Lista <Silla> SillasVendidas, Sillasdisp;
-	Vuelo* vuelo;
+	VueloPlaneado* vueloplan;
 };
 class Estructuras{
 	private:
-//		Lista<Usuario> usuarios;
-		Lista<Administrador> administradores;
+		Lista<Usuario> usuarios;
 		Lista<UsAerolinea> usAerolineas;	
-		Lista<UsCliente> usCliente;
+		Lista<Cliente> clientes;
 		Lista<Pasajero> pasajeros;
 		Lista<Silla> sillas;
 //		Lista<Vuelo> vuelos;
@@ -56,17 +52,18 @@ class Estructuras{
     public:
     	Estructuras(){
 		}
-		void insertarUsAerolinea(UsAerolinea, int pos);
-		void insertarAdministradores(Administrador administrador, int pos);
-		void InsertarUsCliente (UsCliente cliente, int pos);
-		//void InsertarUsuarios(Usuarios usuario, int pos);
+		void insertarusAerolinea(UsAerolinea, int pos);
+		void insertarCliente (Cliente cliente, int pos);
+		void insertarUsuario(Usuario usuario, int pos);
 		//void InsertarVuelo(Vuelo vuelo, int pos);
 		void InsertarPasajero(Pasajero pasajero, int pos);
-		void InsertarVueloPlaneado(VueloPlaneado vueloplan, int pos);
-		void InsertarVueloEspecifico(VueloEspecifico vueloesp, int pos);
+		void insertarVueloPlaneado(VueloPlaneado vueloplan, int pos);
+		void insertarVueloEspecifico(VueloEspecifico vueloesp, int pos);
 		void EliminarVueloPlaneado(string codigo);
 		void EliminarVueloEspecifico(string codigo);
 		void EliminarPasajero(string nombre, string );
+		Usuario* AsignarUsuario(string dato);
+		VueloPlaneado* AsignarvueloPlan(string dato);
 	  /*  Administrador* AsignarAdministrador(string dato);
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
@@ -82,12 +79,62 @@ class Estructuras{
 		int faseDos();
 		int finTorneo();*/
 };
-	void Estructuras::insertarUsAerolinea(UsAerolinea usaerolinea, int pos){
-		usAerolineas.insertar_pos(usaerolinea, pos);
-		cout<<"El tamaño de la lista de entrenadores es: "<<usAerolineas.tamano_lista()<<endl;
+	void Estructuras::insertarUsuario(Usuario usuario, int pos){
+		usuarios.insertar_pos(usuario, pos);
+		cout<<"El tamaño de la lista de usuarios es: "<<usuarios.tamano_lista()<<endl;
 	}
 	
-	void Estructuras::InsertarUsCliente(UsCliente uscliente, int pos){
+	void Estructuras::insertarCliente(Cliente cliente, int pos){
+		clientes.insertar_pos(cliente, pos);
+		cout<<"El tamaño de la lista de clientes es: "<<clientes.tamano_lista()<<endl;
+	}
+	void Estructuras::insertarusAerolinea(UsAerolinea usaerolinea, int pos){
+		usAerolineas.insertar_pos(usaerolinea, pos);
+		cout<<"El tamaño de la lista de usuarios de aerolineas es: "<<usAerolineas.tamano_lista()<<endl;
+	}
+	void Estructuras::insertarVueloPlaneado(VueloPlaneado vueloplan, int pos){
+		vuelosPlaneados.insertar_pos(vueloplan, pos);
+		cout<<"El tamaño de la lista vuelos planeados es: "<<vuelosPlaneados.tamano_lista()<<endl;
+	}
+	void Estructuras::insertarVueloEspecifico(VueloEspecifico vueloespe, int pos){
+		vuelosEspecificos.insertar_pos(vueloespe, pos);
+		cout<<"El tamaño de la lista vuelos especificos es: "<<vuelosEspecificos.tamano_lista()<<endl;
+	}
+	
+	
+	Usuario* Estructuras::AsignarUsuario(string dato){
+		int i=1;
+		Usuario* us= new Usuario;
+		*us=usuarios.obtenerDato(i);
+		while(us->id!= dato){
+			if(i<usuarios.tamano_lista()){
+				i++;
+				*us= usuarios.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return us;
+	}
+	
+	VueloPlaneado* Estructuras::AsignarvueloPlan(string dato){
+		int i=1;
+		VueloPlaneado* vuelo= new VueloPlaneado;
+		*vuelo=vuelosPlaneados.obtenerDato(i);
+		while(vuelo->codigo!= dato){
+			if(i<vuelosPlaneados.tamano_lista()){
+				i++;
+				*vuelo= vuelosPlaneados.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return vuelo;
+	}
+	
+/*	void Estructuras::InsertarUsCliente(UsCliente uscliente, int pos){
 		usCliente.insertar_pos(uscliente, pos);
 		cout<<"El tamaño de la lista de entrenadores es: "<<usCliente.tamano_lista()<<endl;
 	}
@@ -96,7 +143,7 @@ class Estructuras{
 		administradores.insertar_pos(administrador, pos);
 		cout<<"El tamaño de la lista de Administradores es: "<<administradores.tamano_lista()<<endl;
 	}
-	
+	*/
 /*	
 	void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
 		listaJugadores.insertar_pos(jugador, pos);

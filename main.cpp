@@ -15,15 +15,15 @@ Estructuras Es;
 int main(int argc, char** argv) {
 	
 	ManejoArchivos arch1= ManejoArchivos(Es);
-	arch1.cargarAministrador();
-	arch1.cargarPasajeros();
-	arch1.cargarUsAerolinea();
-	arch1.cargarUsCliente();
+	
+//	arch1.cargarPasajeros();
 	arch1.cargarUsuario();
-	arch1.cargarVuelosEspecificos();
+	arch1.cargarCliente();
+	arch1.cargarUsAerolinea();
 	arch1.cargarVuelosPlaneados();
-    arch1.cargarUsuario();
-    Es=*(arch1.retornarObjeto());
+	arch1.cargarVuelosEspecificos();
+
+  //Es=*(arch1.retornarObjeto());
     
 
 }
