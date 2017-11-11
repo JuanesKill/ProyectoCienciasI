@@ -1,9 +1,11 @@
 #include <iostream>
-#include "MCliente.cpp"
+
+//#include "MCliente.cpp"
 //#include "UsAerolinea.cpp"
 
 class GestorUsuario{
 	private:
+		ManejoArchivos man;
 		Estructuras Es;
 		string usuario;
 		string clave;
@@ -11,20 +13,64 @@ class GestorUsuario{
     public:
     	void verificarUsuario(string usuario, string clave);
     	void registrarUsuario();
-    	Estructuras* retornarObjeto();
+    	//Estructuras* retornarObjeto();
     	GestorUsuario(Estructuras Est){
     		Es=Est;
     		system("cls");
     		cout<<"BIENVENIDO AL LOGIN DEL SISTEMA DE VIAJES "<<endl;
-    		cout<<"Para registrarse digite 1"<<endl;
-    		cout<<"Para ingresar al sistema digite 2"<<endl;
+    		cout<<"Para registrarse como cliente digite 1"<<endl;
+    		cout<<"Para registrarse como usuario de aerolinea digite 2"<<endl;
+    		cout<<"Para ingresar al sistema digite 3"<<endl;
     		int op;
     		cin>>op;
     		switch(op){
     			case 1:
-    				
+    				Usuario us;
+    				Cliente cliente;
+    				string id,nom, ape, sex, ed;
+    				cout<<"Digite en orden identificacion, nombre, apellidos, sexo, edad y clave"<<endl;
+    				cin>>id;
+    				cin>>nom;
+    				cin>>ape;
+    				cin>>sex;
+    				cin>>ed;
+    				cin>>clave;
+					cliente.id =id;
+					cliente.nombre= nom;
+					cliente.apellidos= ape;
+					cliente.sexo= sex;
+					cliente.edad= ed;
+					us.id=id;
+					us.tipoUsuario="cliente";
+					us.clave=clave;
+					man.registrarUsuario(us);
+					man.registrarCliente(cliente);
     				break;
     			case 2:
+    				Usuario us;
+    				UsAerolinea usaero;
+    				string id,nom, ape, sex, ed;
+    				cout<<"Digite en orden identificacion, nombre, apellidos, sexo, edad y clave"<<endl;
+    				cin>>id;
+    				cin>>nom;
+    				cin>>ape;
+    				cin>>sex;
+    				cin>>ed;
+    				cin>>clave;
+					usaero.id =id;
+					usaero.nombre= nom;
+					usaero.apellidos= ape;
+					usaero.sexo= sex;
+					usaero.edad= ed;
+					us.id=id;
+					us.tipoUsuario="usaerolinea";
+					us.clave=clave;
+					man.registrarUsuario(us);
+					man.registrarUsAerolinea(usaero);
+    				break;
+    				
+					
+    			case 3:
     				cout<<"Porfavor digite el ID de su usuario: "<<endl;
      				cin>>usuario;
      				cout<<"porfavor Ingrese la Contraseña"<<endl;
@@ -106,9 +152,8 @@ class GestorUsuario{
 			}
 		}
 	}
-	Estructuras* GestorUsuario::retornarObjeto(){
+	/*Estructuras* GestorUsuario::retornarObjeto(){
 		Estructuras* est= new Estructuras;
 		*est=Es;
 		return est;
-	}
-	
+	}*/

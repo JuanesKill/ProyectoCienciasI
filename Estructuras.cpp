@@ -1,6 +1,17 @@
 #include <iostream>
 #include "lista.h"
 
+struct itnr{
+	string titulo;
+	//se agregan todos los vuelos asinados al Itinerario  
+};
+
+struct Aerolinea{
+	string nombre;
+	int air_disp;
+	itnr* itnrcompleto;
+	int cta_banco;
+}; 
 struct Usuario {
 	string id, tipoUsuario, clave;
 };
@@ -15,27 +26,26 @@ struct Cliente {
 	Usuario* usuario;
 };
 
+struct Pasajero {
+	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
+};
+
 struct Silla{
 	string id,estado;
 };
-
-struct Pasajero {
-	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
-	Silla *silla;
-};
-
 /*struct Vuelo{
 	string codigo, origen, destino, precio;
 	Lista<Silla> sillas;
 };*/
 struct VueloPlaneado {
-	string codigo, origen, destino, dia, horaInicio, horaFin;
+	string codigo, origen, destino, precio, dia, horaInicio, horaFin;
+	Lista<Silla> sillas;
 	
 };
 
 struct VueloEspecifico{
-	string  codigo, fecha, tipoavion;
-	int numSillasDisp, adtarifa, nitarifa;
+	string  codigo, fecha;
+	int numSillasDisp;
 	Lista <Silla> SillasVendidas, Sillasdisp;
 	VueloPlaneado* vueloplan;
 };
@@ -65,7 +75,6 @@ class Estructuras{
 		void EliminarPasajero(string nombre, string );
 		Usuario* AsignarUsuario(string dato);
 		VueloPlaneado* AsignarvueloPlan(string dato);
-		Cliente* AsignarCliente(string dato);
 	  /*  Administrador* AsignarAdministrador(string dato);
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
@@ -73,7 +82,6 @@ class Estructuras{
 	      Jugadores* AsignarJugador(string dato, int pos, int op);
 	    PartidosF1* obtenerPartidos(string dato, int pos);
 	   PartidosF2* obtenerPartidos2(string dato, int pos);
-		Usuarios* AsignarUsuario(string en);
 		Estadios* ObtenerEstadio(string dato, int pos, int op);
 		Equipos* ObtenerEquipo(string dato, int op, int pos);
 		Grupos* ObtenerGrupo(string dato, int pos, int op);*/
@@ -136,39 +144,11 @@ class Estructuras{
 		 return vuelo;
 	}
 	
-	Cliente* Estructuras::AsignarCliente(string dato){
-		int i=1;
-		Cliente *cliente= new Cliente;
-		*cliente=clientes.obtenerDato(i);
-		while(cliente->id != dato){
-			if(i<clientes.tamano_lista()){
-				i++;
-				*cliente= clientes.obtenerDato(i);
-			}
-			else{
-				return NULL;
-			}
-		}
-		 return cliente;
-	}
-	
-	
-/*	void Estructuras::InsertarUsCliente(UsCliente uscliente, int pos){
-		usCliente.insertar_pos(uscliente, pos);
-		cout<<"El tamaño de la lista de entrenadores es: "<<usCliente.tamano_lista()<<endl;
-	}
-	
-	void Estructuras::insertarAdministradores(Administrador administrador, int pos){
-		administradores.insertar_pos(administrador, pos);
-		cout<<"El tamaño de la lista de Administradores es: "<<administradores.tamano_lista()<<endl;
-	}
-	*/
-/*	
-	void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
+
+	/*void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
 		listaJugadores.insertar_pos(jugador, pos);
 		cout<<"El tamaño de la lista de jugadores es: "<<listaJugadores.tamano_lista()<<endl;
 	}
-
 	
 	void Estructuras::InsertarPaices(Equipos eq, int pos){
 		listaEquipos.insertar_pos(eq,pos);
@@ -255,6 +235,22 @@ class Estructuras{
 		cout<<"El tamaño de la lista de equipos es: "<<listaJugadores.tamano_lista()<<endl;			
 	}
 	
+	Usuarios* Estructuras::AsignarUsuario(string dato){
+		cout<<usuarios.tamano_lista()<<endl;
+		int i=1;
+		Usuarios* us= new Usuarios;
+		*us=usuarios.obtenerDato(i);
+		while(us->id!= dato){
+			if(i<usuarios.tamano_lista()){
+				i++;
+				*us= usuarios.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return us;
+	}
 	
 	Entrenadores* Estructuras::AsignarEntrenador(string dato, int op){
 		int i=1;
@@ -588,5 +584,4 @@ class Estructuras{
 		aux= listaPartidos2.tamano_lista();
 		return aux;
 	}*/
-
 
