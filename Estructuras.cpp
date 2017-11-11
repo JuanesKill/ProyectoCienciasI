@@ -15,26 +15,27 @@ struct Cliente {
 	Usuario* usuario;
 };
 
-struct Pasajero {
-	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
-};
-
 struct Silla{
 	string id,estado;
 };
+
+struct Pasajero {
+	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
+	Silla *silla;
+};
+
 /*struct Vuelo{
 	string codigo, origen, destino, precio;
 	Lista<Silla> sillas;
 };*/
 struct VueloPlaneado {
-	string codigo, origen, destino, precio, dia, horaInicio, horaFin;
-	Lista<Silla> sillas;
+	string codigo, origen, destino, dia, horaInicio, horaFin;
 	
 };
 
 struct VueloEspecifico{
-	string  codigo, fecha;
-	int numSillasDisp;
+	string  codigo, fecha, tipoavion;
+	int numSillasDisp, adtarifa, nitarifa;
 	Lista <Silla> SillasVendidas, Sillasdisp;
 	VueloPlaneado* vueloplan;
 };
@@ -64,6 +65,7 @@ class Estructuras{
 		void EliminarPasajero(string nombre, string );
 		Usuario* AsignarUsuario(string dato);
 		VueloPlaneado* AsignarvueloPlan(string dato);
+		Cliente* AsignarCliente(string dato);
 	  /*  Administrador* AsignarAdministrador(string dato);
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
@@ -133,6 +135,23 @@ class Estructuras{
 		}
 		 return vuelo;
 	}
+	
+	Cliente* Estructuras::AsignarCliente(string dato){
+		int i=1;
+		Cliente *cliente= new Cliente;
+		*cliente=clientes.obtenerDato(i);
+		while(cliente->id != dato){
+			if(i<clientes.tamano_lista()){
+				i++;
+				*cliente= clientes.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return cliente;
+	}
+	
 	
 /*	void Estructuras::InsertarUsCliente(UsCliente uscliente, int pos){
 		usCliente.insertar_pos(uscliente, pos);
@@ -236,22 +255,6 @@ class Estructuras{
 		cout<<"El tamaño de la lista de equipos es: "<<listaJugadores.tamano_lista()<<endl;			
 	}
 	
-	Usuarios* Estructuras::AsignarUsuario(string dato){
-		cout<<usuarios.tamano_lista()<<endl;
-		int i=1;
-		Usuarios* us= new Usuarios;
-		*us=usuarios.obtenerDato(i);
-		while(us->id!= dato){
-			if(i<usuarios.tamano_lista()){
-				i++;
-				*us= usuarios.obtenerDato(i);
-			}
-			else{
-				return NULL;
-			}
-		}
-		 return us;
-	}
 	
 	Entrenadores* Estructuras::AsignarEntrenador(string dato, int op){
 		int i=1;
