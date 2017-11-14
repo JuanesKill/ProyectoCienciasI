@@ -14,8 +14,8 @@ class MAerolinea{
  				cout<<"Ha ingresado Usuario de Aerolinea: "<< usaero.nombre<<" "<<usaero.apellidos<<endl;
  				cout<<"con indentificacion: "<<usaero.id<<endl;
  				cout<<endl;
-		     	cout<<"A. Consultar programacion partidos"<<endl;
-		     	cout<<"B. Consultar lista de equipos "<<endl;
+		     	cout<<"A. Registrar vuelos planeados"<<endl; //
+		     	cout<<"B. Generar Listas  "<<endl; // realizar metodos y menus;
 		     	cout<<"C. Modificar plantilla de su equipo"<<endl;
 		     	cout<<"D. salir"<<endl;
 		     	do{
