@@ -9,7 +9,7 @@
 #include "GestorUsuario.cpp"
 #include "ManejoArchivos.cpp"
 #include "MCliente.cpp"
-//#include "UsAerolinea.cpp"
+#include "MAerolinea.cpp"
 #include "lista.h"
 
 Estructuras Es;
@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 	arch1.cargarUsAerolinea();
 	arch1.cargarVuelosPlaneados();
 	arch1.cargarVuelosEspecificos();
-	
+
 	Es=*(arch1.retornarObjeto());
   	char dec; //decision
  	do{
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 		switch (dec){
         	case 'A':{
         		GestorUsuario ges = GestorUsuario(Es);
-             	Es= *(ges.retornarObjeto());
+             	//Es= *(ges.retornarObjeto());
             	break;
              }  
              case 'B':{
@@ -62,5 +62,4 @@ int main(int argc, char** argv) {
 	}
  	while (dec!= 'D');
     
-
 }
