@@ -10,9 +10,9 @@ class MAerolinea{
  			do{
  				system("cls");
  				cout<<"BIENVENIDO AL GESTOR DEL SISTEMA DE VIAJES"<<endl;
- 				UsAerolinea usaero=*(Es.(u.id));
- 				cout<<"Ha ingresado Usuario de Aerolinea: "<< cliente.nombre<<" "<<cliente.apellidos<<endl;
- 				cout<<"con indentificacion: "<<cliente.id<<endl;
+ 				UsAerolinea usaero=*(Es.AsignarUsAerolinea(u.id));
+ 				cout<<"Ha ingresado Usuario de Aerolinea: "<< usaero.nombre<<" "<<usaero.apellidos<<endl;
+ 				cout<<"con indentificacion: "<<usaero.id<<endl;
  				cout<<endl;
 		     	cout<<"A. Consultar programacion partidos"<<endl;
 		     	cout<<"B. Consultar lista de equipos "<<endl;
@@ -47,7 +47,7 @@ class MAerolinea{
 	//	void ConsultarJugadores();
 		//Estructuras* retornarObjeto();
 };
-	/*Estructuras* MCliente::retornarObjeto(){
+/*	Estructuras* MCliente::retornarObjeto(){
 		Estructuras* est= new Estructuras;
 		*est=Es;
 		return est;

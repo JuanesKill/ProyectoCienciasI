@@ -29,9 +29,9 @@ class ManejoArchivos{
     	void cargarUsAerolinea();
     	void cargarVuelosPlaneados();
     	void cargarVuelosEspecificos();
-		void registrarUsuario(Usuario) us;
+		void registrarUsuario(Usuario us);
 		void registrarCliente(Cliente cli);
-		void registrarUsAerolinea(UsAerolinea Us)
+		void registrarUsAerolinea(UsAerolinea usaero);
     	void cargarPasajeros();
     	Estructuras* retornarObjeto();
     	string AsignarGrupo();
@@ -283,7 +283,7 @@ class ManejoArchivos{
      	}
      	else{
          	entrada<<cli.id;
-         while (!salida.eof()) {
+         while (!entrada.eof()) {
          	entrada<<cli.nombre;
             entrada<<cli.apellidos;
 			entrada<<cli.edad; 
@@ -303,7 +303,7 @@ class ManejoArchivos{
      	}
      	else{
          	entrada<<usaero.id;
-         while (!salida.eof()) {
+         while (!entrada.eof()) {
          	entrada<<usaero.nombre;
             entrada<<usaero.apellidos;
 			entrada<<usaero.edad; 
@@ -314,4 +314,7 @@ class ManejoArchivos{
      }
      getch ();
 	}
+
+
+	
 	

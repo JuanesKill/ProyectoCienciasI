@@ -1,7 +1,7 @@
 #include <iostream>
-
-//#include "MCliente.cpp"
-//#include "UsAerolinea.cpp"
+#include "ManejoArchivos.cpp"
+#include "MCliente.cpp"
+#include "MAerolinea.cpp"
 
 class GestorUsuario{
 	private:
@@ -9,11 +9,15 @@ class GestorUsuario{
 		Estructuras Es;
 		string usuario;
 		string clave;
+		string id,nom, ape, sex, ed;
+		Usuario us;
+    	Cliente cliente;
+    	UsAerolinea usaero;
 		
     public:
     	void verificarUsuario(string usuario, string clave);
-    	void registrarUsuario();
-    	//Estructuras* retornarObjeto();
+    	void registrarUsuario(Usuario us);
+    	Estructuras* retornarObjeto();
     	GestorUsuario(Estructuras Est){
     		Es=Est;
     		system("cls");
@@ -25,9 +29,6 @@ class GestorUsuario{
     		cin>>op;
     		switch(op){
     			case 1:
-    				Usuario us;
-    				Cliente cliente;
-    				string id,nom, ape, sex, ed;
     				cout<<"Digite en orden identificacion, nombre, apellidos, sexo, edad y clave"<<endl;
     				cin>>id;
     				cin>>nom;
@@ -47,9 +48,7 @@ class GestorUsuario{
 					man.registrarCliente(cliente);
     				break;
     			case 2:
-    				Usuario us;
-    				UsAerolinea usaero;
-    				string id,nom, ape, sex, ed;
+
     				cout<<"Digite en orden identificacion, nombre, apellidos, sexo, edad y clave"<<endl;
     				cin>>id;
     				cin>>nom;
@@ -83,10 +82,11 @@ class GestorUsuario{
 			}
 		}
 
-};
-	void GestorUsuario::registrarUsuario(){
-		
-	}
+};	
+	void GestorUsuario::registrarUsuario(Usuario us){
+		man.registrarUsuario(us);
+	}	
+
 	void GestorUsuario::verificarUsuario(string usuario, string clave){
 		Usuario *us= Es.AsignarUsuario(usuario);
 		if(us==NULL){
@@ -152,8 +152,8 @@ class GestorUsuario{
 			}
 		}
 	}
-	/*Estructuras* GestorUsuario::retornarObjeto(){
+	Estructuras* GestorUsuario::retornarObjeto(){
 		Estructuras* est= new Estructuras;
 		*est=Es;
 		return est;
-	}*/
+	}

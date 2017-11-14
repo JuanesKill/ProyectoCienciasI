@@ -75,7 +75,9 @@ class Estructuras{
 		void EliminarPasajero(string nombre, string );
 		Usuario* AsignarUsuario(string dato);
 		VueloPlaneado* AsignarvueloPlan(string dato);
-	  /*  Administrador* AsignarAdministrador(string dato);
+		Cliente* AsignarCliente(string dato);
+		UsAerolinea* AsignarUsAerolinea(string dato);
+	  /*  
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
         Entrenadores* AsignarEntrenador(string dato, int op);
@@ -142,6 +144,38 @@ class Estructuras{
 			}
 		}
 		 return vuelo;
+	}
+	
+	Cliente* Estructuras::AsignarCliente(string dato){
+		int i=1;
+		Cliente *cliente= new Cliente;
+		*cliente=clientes.obtenerDato(i);
+		while(cliente->id != dato){
+			if(i<clientes.tamano_lista()){
+				i++;
+				*cliente= clientes.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return cliente;
+	}
+	
+	UsAerolinea* Estructuras::AsignarUsAerolinea(string dato){
+		int i=1;
+		UsAerolinea *usaero= new UsAerolinea;
+		*usaero=usAerolineas.obtenerDato(i);
+		while(usaero->id != dato){
+			if(i<usAerolineas.tamano_lista()){
+				i++;
+				*usaero= usAerolineas.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return usaero;
 	}
 	
 
@@ -584,4 +618,3 @@ class Estructuras{
 		aux= listaPartidos2.tamano_lista();
 		return aux;
 	}*/
-
