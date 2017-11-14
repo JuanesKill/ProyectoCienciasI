@@ -175,20 +175,16 @@ class ManejoArchivos{
 			salida>>dato4;
 			salida>>dato5;
 			salida>>dato6;
-			salida>>dato7;
 			VueloPlaneado vueloplaneado;
 			string codigo(dato1);
 			string origen(dato2);
 			string destino(dato3);
-			string precios(dato4);
-			string dia(dato5);
-			string horainicio(dato6);
-			string horafin(dato7);
-			int precio = atoi(precios.c_str());
+			string dia(dato4);
+			string horainicio(dato5);
+			string horafin(dato6);
 			vueloplaneado.codigo= codigo;
 			vueloplaneado.origen= origen;
 			vueloplaneado.destino= destino;
-			vueloplaneado.precio= precio;
 			vueloplaneado.dia= dia;
 			vueloplaneado.horaInicio= horainicio;
 			vueloplaneado.horaFin= horafin;
@@ -225,19 +221,24 @@ class ManejoArchivos{
          	salida>>dato1;//aqui leemos primero el nombre del lobro antes del white por lo siguiente:
          while (!salida.eof()) //(esto significa que recorre el archivo hasta el final)
          {
-            salida>>dato2; 
-			salida>>dato3;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
-			VueloEspecifico vueloespecifico;
-			string codigo(dato1);
-			string numSillasDispo(dato2);
-			string fecha(dato3);
-			int numSillasDisp = atoi(numSillasDispo.c_str());
-			vueloespecifico.codigo= codigo;
-			vueloespecifico.numSillasDisp= numSillasDisp;
-			vueloespecifico.fecha= fecha;
-			cout<< "codigo: "<< vueloespecifico.codigo<<endl;
- 			vueloespecifico.vueloplan=Es.AsignarvueloPlan(vueloespecifico.codigo);
- 			if(vueloespecifico.vueloplan==NULL){
+         	string codigo(dato1);
+  			string numSillasDispo(dato2);
+  			string fecha(dato3);
+ 			string tipoavion(dato4);
+ 			string adutarifa(dato5);
+ 			string nintarifa(dato6);
+  			int numSillasDisp = atoi(numSillasDispo.c_str());
+ 			int adtarifa = atoi(adutarifa.c_str());
+ 			int nitarifa = atoi(nintarifa.c_str());
+  			vueloespecifico.codigo= codigo;
+  			vueloespecifico.numSillasDisp= numSillasDisp;
+  			vueloespecifico.fecha= fecha;
+ 			vueloespecifico.tipoavion= tipoavion;
+ 			vueloespecifico.adtarifa= adtarifa;
+ 			vueloespecifico.nitarifa= nitarifa;
+  			cout<< "codigo: "<< vueloespecifico.codigo<<endl;
+   			vueloespecifico.vueloplan=Es.AsignarvueloPlan(vueloespecifico.codigo);
+            if(vueloespecifico.vueloplan==NULL){
  				cout<<"el vuelo especifico no tiene vuelo planeado"<<endl;
 			 }
 			 else{
@@ -313,6 +314,12 @@ class ManejoArchivos{
          entrada.close (); 
      }
      getch ();
+	}
+	
+	Estructuras* ManejoArchivos::retornarObjeto(){
+		Estructuras* est= new Estructuras;
+		*est=Es;
+		return est;
 	}
 
 
