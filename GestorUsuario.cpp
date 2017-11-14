@@ -17,6 +17,8 @@ class GestorUsuario{
     public:
     	void verificarUsuario(string usuario, string clave);
     	void registrarUsuario(Usuario us);
+    	void registrarCliente(Cliente cliente);
+    	void registrarUsAerolinea(UsAerolinea usaero);
     	Estructuras* retornarObjeto();
     	GestorUsuario(Estructuras Est){
     		Es=Est;
@@ -44,8 +46,8 @@ class GestorUsuario{
 					us.id=id;
 					us.tipoUsuario="cliente";
 					us.clave=clave;
-					man.registrarUsuario(us);
-					man.registrarCliente(cliente);
+					registrarUsuario(us);
+					
     				break;
     			case 2:
 
@@ -64,7 +66,7 @@ class GestorUsuario{
 					us.id=id;
 					us.tipoUsuario="usaerolinea";
 					us.clave=clave;
-					man.registrarUsuario(us);
+					registrarUsuario(us);
 					man.registrarUsAerolinea(usaero);
     				break;
     				
@@ -72,7 +74,7 @@ class GestorUsuario{
     			case 3:
     				cout<<"Porfavor digite el ID de su usuario: "<<endl;
      				cin>>usuario;
-     				cout<<"porfavor Ingrese la Contraseña"<<endl;
+     				cout<<"porfavor Ingrese la ContraseÃ±a"<<endl;
      				cin>>clave;
      				verificarUsuario(usuario, clave);
     				break;
@@ -85,7 +87,17 @@ class GestorUsuario{
 };	
 	void GestorUsuario::registrarUsuario(Usuario us){
 		man.registrarUsuario(us);
-	}	
+	}
+	
+	void GestorUsuario::registrarCliente(Cliente cliente){
+		man.registrarCliente(cliente);
+	}
+	
+	void GestorUsuario::registrarUsAerolinea(UsAerolinea usaero){
+		man.registrarUsAerolinea(usaero);
+	}
+
+	
 
 	void GestorUsuario::verificarUsuario(string usuario, string clave){
 		Usuario *us= Es.AsignarUsuario(usuario);
