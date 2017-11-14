@@ -1,17 +1,6 @@
 #include <iostream>
 #include "lista.h"
 
-struct itnr{
-	string titulo;
-	//se agregan todos los vuelos asinados al Itinerario  
-};
-
-struct Aerolinea{
-	string nombre;
-	int air_disp;
-	itnr* itnrcompleto;
-	int cta_banco;
-}; 
 struct Usuario {
 	string id, tipoUsuario, clave;
 };
@@ -28,35 +17,68 @@ struct Cliente {
 
 struct Pasajero {
 	string nombres, apellidos, numidentificacion, fechaNacimiento, tipo;
+	
 };
+
 
 struct Silla{
 	string id,estado;
+	Silla* sig;
 };
+
+struct Reserva{
+	string idreserva, idusuario, idsilla; 
+	Lista<Pasajero> pasajeros; 
+};
+
 /*struct Vuelo{
 	string codigo, origen, destino, precio;
 	Lista<Silla> sillas;
 };*/
-struct VueloPlaneado {
-	string codigo, origen, destino, precio, dia, horaInicio, horaFin;
-	Lista<Silla> sillas;
+struct VueloPlaneado { //registrar vuelos planeados en el archivo;
+	string codigo, origen, destino, dia, horaInicio, horaFin;
+	//Lista<Silla> sillas;
 	
 };
 
-struct VueloEspecifico{
+struct VueloEspecifico{ // registrar veulos especificos asignar a uuelo planeadoen el archivos;
 	string  codigo, fecha;
-	int numSillasDisp;
-	Lista <Silla> SillasVendidas, Sillasdisp;
+ 	int numSillasDisp, adtarifa, nitarifa;
 	VueloPlaneado* vueloplan;
+	avion* avion;
+	
 };
+
+struct itnr{
+	string titulo, id;
+	Lista<VueloEspecifico> vuelos;
+	//se agregan todos los vuelos asinados al Itinerario  
+};
+
+struct Aerolinea{ //Funcion registrar aerolinea, y cargar aerolinea desde los archivos;
+	string nombre;
+	int air_disp;
+	itnr* itnrcompleto;
+	int cta_banco;
+}; 
+
+struct avion{
+	Lista<Silla> sillas;
+	string id, tipoavion;
+	int capacidad;
+	Aerolinea* aerolinea;
+};
+
 class Estructuras{
 	private:
 		Lista<Usuario> usuarios;
-		Lista<UsAerolinea> usAerolineas;	
+		Lista<UsAerolinea> usAerolineas;
+		Lista<Aerolinea> aerolineas;	
 		Lista<Cliente> clientes;
 		Lista<Pasajero> pasajeros;
 		Lista<Silla> sillas;
 //		Lista<Vuelo> vuelos;
+		
 		Lista<VueloPlaneado> vuelosPlaneados;
 		Lista<VueloEspecifico> vuelosEspecificos;
 		int posicionAux;
@@ -93,24 +115,24 @@ class Estructuras{
 };
 	void Estructuras::insertarUsuario(Usuario usuario, int pos){
 		usuarios.insertar_pos(usuario, pos);
-		cout<<"El tamaño de la lista de usuarios es: "<<usuarios.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de usuarios es: "<<usuarios.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::insertarCliente(Cliente cliente, int pos){
 		clientes.insertar_pos(cliente, pos);
-		cout<<"El tamaño de la lista de clientes es: "<<clientes.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de clientes es: "<<clientes.tamano_lista()<<endl;
 	}
 	void Estructuras::insertarusAerolinea(UsAerolinea usaerolinea, int pos){
 		usAerolineas.insertar_pos(usaerolinea, pos);
-		cout<<"El tamaño de la lista de usuarios de aerolineas es: "<<usAerolineas.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de usuarios de aerolineas es: "<<usAerolineas.tamano_lista()<<endl;
 	}
 	void Estructuras::insertarVueloPlaneado(VueloPlaneado vueloplan, int pos){
 		vuelosPlaneados.insertar_pos(vueloplan, pos);
-		cout<<"El tamaño de la lista vuelos planeados es: "<<vuelosPlaneados.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista vuelos planeados es: "<<vuelosPlaneados.tamano_lista()<<endl;
 	}
 	void Estructuras::insertarVueloEspecifico(VueloEspecifico vueloespe, int pos){
 		vuelosEspecificos.insertar_pos(vueloespe, pos);
-		cout<<"El tamaño de la lista vuelos especificos es: "<<vuelosEspecificos.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista vuelos especificos es: "<<vuelosEspecificos.tamano_lista()<<endl;
 	}
 	
 	
@@ -181,42 +203,42 @@ class Estructuras{
 
 	/*void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
 		listaJugadores.insertar_pos(jugador, pos);
-		cout<<"El tamaño de la lista de jugadores es: "<<listaJugadores.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de jugadores es: "<<listaJugadores.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarPaices(Equipos eq, int pos){
 		listaEquipos.insertar_pos(eq,pos);
-		cout<<"El tamaño de la lista de equipos es: "<<listaEquipos.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de equipos es: "<<listaEquipos.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarGrupos(Grupos gr, int pos){
 		listaGrupos.insertar_pos(gr,pos);
-		cout<<"El tamaño de la lista de grupos es: "<<listaGrupos.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de grupos es: "<<listaGrupos.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarEstadios(Estadios es, int pos){
 		listaEstadios.insertar_pos(es, pos);
-		cout<<"El tamaño de la lista de estadios es: "<<listaEstadios.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de estadios es: "<<listaEstadios.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarProgramaciones(ProgramacionF1 programacion, int pos){
 		listaProgramacion.insertar_pos(programacion, pos);
-		cout<<"El tamaño de la lista de Programaciones es: "<<listaProgramacion.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de Programaciones es: "<<listaProgramacion.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarProgramaciones2(ProgramacionF2 programacion, int pos){
 		listaProgramacion2.insertar_pos(programacion, pos);
-		cout<<"El tamaño de la lista de Programaciones es: "<<listaProgramacion2.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de Programaciones es: "<<listaProgramacion2.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarPartidos(PartidosF1 partido, int pos){
 		listaPartidos.insertar_pos(partido, pos);
-		cout<<"El tamaño de la lista de Partidos es: "<<listaPartidos.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de Partidos es: "<<listaPartidos.tamano_lista()<<endl;
 	}
 	
 	void Estructuras::InsertarPartidos2(PartidosF2 partido, int pos){
 		listaPartidos2.insertar_pos(partido, pos);
-		cout<<"El tamaño de la lista de Partidos es: "<<listaPartidos2.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de Partidos es: "<<listaPartidos2.tamano_lista()<<endl;
 	}*/
 	/*
 	void Estructuras::EliminarEquipo(string equipo){
@@ -229,7 +251,7 @@ class Estructuras{
 		}
 		listaEquipos.eliminar(u);
 		posicionAux=u;
-		cout<<"El tamaño de la lista de equipos es: "<<listaEquipos.tamano_lista()<<endl;			
+		cout<<"El tamaÃ±o de la lista de equipos es: "<<listaEquipos.tamano_lista()<<endl;			
 	}
 	
 	void Estructuras::EliminarGrupo(string grupo){
@@ -242,7 +264,7 @@ class Estructuras{
 		}
 		listaGrupos.eliminar(u);
 		posicionAux=u;
-		cout<<"El tamaño de la lista de equipos es: "<<listaGrupos.tamano_lista()<<endl;
+		cout<<"El tamaÃ±o de la lista de equipos es: "<<listaGrupos.tamano_lista()<<endl;
 					
 	}
 	
@@ -266,7 +288,7 @@ class Estructuras{
 		}
 		listaJugadores.eliminar(u);
 		posicionAux=u;
-		cout<<"El tamaño de la lista de equipos es: "<<listaJugadores.tamano_lista()<<endl;			
+		cout<<"El tamaÃ±o de la lista de equipos es: "<<listaJugadores.tamano_lista()<<endl;			
 	}
 	
 	Usuarios* Estructuras::AsignarUsuario(string dato){
