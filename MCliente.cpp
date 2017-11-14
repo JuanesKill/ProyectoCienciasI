@@ -14,8 +14,8 @@ class MCliente{
  				cout<<"Ha ingresado cliente: "<< cliente.nombre<<" "<<cliente.apellidos<<endl;
  				cout<<"con indentificacion: "<<cliente.id<<endl;
  				cout<<endl;
-		     	cout<<"A. Consultar programacion partidos"<<endl;
-		     	cout<<"B. Consultar lista de equipos "<<endl;
+		     	cout<<"A. Reservar"<<endl; //primero pedir origen destino cuantos pasajeros fecha de salida
+		     	cout<<"B. Consultar Reservas"<<endl;
 		     	cout<<"C. Modificar plantilla de su equipo"<<endl;
 		     	cout<<"D. salir"<<endl;
 		     	do{
@@ -45,10 +45,10 @@ class MCliente{
 		}
 	//	void consultarEquipos();
 	//	void ConsultarJugadores();
-		//Estructuras* retornarObjeto();
+	Estructuras* retornarObjeto();
 };
-	/*Estructuras* MCliente::retornarObjeto(){
+	Estructuras* MCliente::retornarObjeto(){
 		Estructuras* est= new Estructuras;
 		*est=Es;
 		return est;
-	}*/
+	}
