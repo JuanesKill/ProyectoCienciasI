@@ -20,10 +20,10 @@ struct Pasajero {
 	
 };
 
-
 struct Silla{
 	string id,estado;
 	Silla* sig;
+	
 };
 
 struct Reserva{
@@ -35,39 +35,39 @@ struct Reserva{
 	string codigo, origen, destino, precio;
 	Lista<Silla> sillas;
 };*/
+struct Avion{
+	string id, idaerolinea, tipoavion;
+	Lista<Silla> sillas;
+	int capacidad;
+	
+};
+
 struct VueloPlaneado { //registrar vuelos planeados en el archivo;
 	string codigo, origen, destino, dia, horaInicio, horaFin;
 	//Lista<Silla> sillas;
 	
 };
 
-struct VueloEspecifico{ // registrar veulos especificos asignar a uuelo planeadoen el archivos;
+struct VueloEspecifico{ // registrar veulos especificos  en el archivos;
 	string  codigo, fecha;
  	int numSillasDisp, adtarifa, nitarifa;
 	VueloPlaneado* vueloplan;
-	avion* avion;
-	
+	Avion* avion;
 };
-
 struct itnr{
 	string titulo, id;
 	Lista<VueloEspecifico> vuelos;
 	//se agregan todos los vuelos asinados al Itinerario  
 };
-
-struct Aerolinea{ //Funcion registrar aerolinea, y cargar aerolinea desde los archivos;
-	string nombre;
-	int air_disp;
+struct Aerolinea{ //Funcion registrar aerolinea desde los archivos;
+	string id ,nombre;
+	int avionesdisp, cta_banco;
 	itnr* itnrcompleto;
-	int cta_banco;
+	Lista<Avion> aviones;
 }; 
 
-struct avion{
-	Lista<Silla> sillas;
-	string id, tipoavion;
-	int capacidad;
-	Aerolinea* aerolinea;
-};
+
+
 
 class Estructuras{
 	private:
@@ -76,9 +76,8 @@ class Estructuras{
 		Lista<Aerolinea> aerolineas;	
 		Lista<Cliente> clientes;
 		Lista<Pasajero> pasajeros;
-		Lista<Silla> sillas;
+		Lista<Silla> sillas ;
 //		Lista<Vuelo> vuelos;
-		
 		Lista<VueloPlaneado> vuelosPlaneados;
 		Lista<VueloEspecifico> vuelosEspecificos;
 		int posicionAux;
@@ -90,13 +89,17 @@ class Estructuras{
 		void insertarUsuario(Usuario usuario, int pos);
 		//void InsertarVuelo(Vuelo vuelo, int pos);
 		void InsertarPasajero(Pasajero pasajero, int pos);
+		void insertarAerolinea(Aerolinea aerolinea, int pos);
 		void insertarVueloPlaneado(VueloPlaneado vueloplan, int pos);
 		void insertarVueloEspecifico(VueloEspecifico vueloesp, int pos);
 		void EliminarVueloPlaneado(string codigo);
 		void EliminarVueloEspecifico(string codigo);
 		void EliminarPasajero(string nombre, string );
+		void insertarAvion();
+		string AsignarAerolinea(string dato, Avion avion);
 		Usuario* AsignarUsuario(string dato);
 		VueloPlaneado* AsignarvueloPlan(string dato);
+		itnr* AsignarItinerario(string dato);
 		Cliente* AsignarCliente(string dato);
 		UsAerolinea* AsignarUsAerolinea(string dato);
 	  /*  
@@ -126,6 +129,11 @@ class Estructuras{
 		usAerolineas.insertar_pos(usaerolinea, pos);
 		cout<<"El tamaño de la lista de usuarios de aerolineas es: "<<usAerolineas.tamano_lista()<<endl;
 	}
+	void Estructuras::insertarAerolinea(Aerolinea aerolinea, int pos){
+		aerolineas.insertar_pos(aerolinea, pos);
+		cout<<"El tamaño de la lista de aerolineas es: "<<aerolineas.tamano_lista()<<endl;
+	}
+	
 	void Estructuras::insertarVueloPlaneado(VueloPlaneado vueloplan, int pos){
 		vuelosPlaneados.insertar_pos(vueloplan, pos);
 		cout<<"El tamaño de la lista vuelos planeados es: "<<vuelosPlaneados.tamano_lista()<<endl;
@@ -199,8 +207,39 @@ class Estructuras{
 		}
 		 return usaero;
 	}
+	string Estructuras::AsignarAerolinea(string dato, Avion avion){
+		int i=1;
+		Aerolinea* aerolinea= new Aerolinea;
+		*aerolinea=aerolineas.obtenerDato(i);
+		while(aerolinea->id!= dato){
+			if(i<aerolineas.tamano_lista()){
+				i++;
+				*aerolinea= aerolineas.obtenerDato(i);
+			}
+			else{
+				return "na";
+			}
+		}
+		 aerolinea->aviones.insertar_final(avion);
+		 aerolinea->avionesdisp= aerolinea->avionesdisp+1;
+		 return aerolinea->id;
+	}
 	
-
+	/*itnr* Estructuras::AsignarItinerario(string dato){
+		int i=1;
+		itnr *itin= new itnr;
+		*itin=usAerolineas.obtenerDato(i);
+		while(usaero->id != dato){
+			if(i<usAerolineas.tamano_lista()){
+				i++;
+				*usaero= usAerolineas.obtenerDato(i);
+			}
+			else{
+				return NULL;
+			}
+		}
+		 return usaero;
+	}*/
 	/*void Estructuras::InsertarJugadores(Jugadores jugador, int pos){
 		listaJugadores.insertar_pos(jugador, pos);
 		cout<<"El tamaño de la lista de jugadores es: "<<listaJugadores.tamano_lista()<<endl;
