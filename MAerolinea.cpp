@@ -3,9 +3,11 @@
 class MAerolinea{
 	private:
 		Estructuras Es;
+		ManejoArchivos man;
     public:
-    	MAerolinea(Estructuras E, Usuario u){
+    	MAerolinea(Estructuras E, Usuario u, ManejoArchivos m){
     		Es=E;
+    		man=m;
     		char dec; //decision
  			do{
  				system("cls");
@@ -14,9 +16,9 @@ class MAerolinea{
  				cout<<"Ha ingresado Usuario de Aerolinea: "<< usaero.nombre<<" "<<usaero.apellidos<<endl;
  				cout<<"con indentificacion: "<<usaero.id<<endl;
  				cout<<endl;
-		     	cout<<"A. Registrar vuelos planeados"<<endl; //
-		     	cout<<"B. Generar Listas  "<<endl; // realizar metodos y menus;
-		     	cout<<"C. Modificar plantilla de su equipo"<<endl;
+		     	cout<<"A. Registrar vuelos planeados"<<endl; 
+		     	cout<<"B. Generar Listas  "<<endl; 
+		     	cout<<"C. Registrar Aerolinea"<<endl; 
 		     	cout<<"D. salir"<<endl;
 		     	do{
 		     		do {
@@ -28,12 +30,50 @@ class MAerolinea{
 		 
 				switch (dec){
 		        	case 'A':{
+		        			string codigo, origen, destino, dia, horaInicio, horaFin;
+		              		cout<<"Digite codigo"<<endl;
+			    			cin>>id;
+			    			cout<<"Digite origen"<<endl;
+			    			cin>>ori;
+			    			cout<<"Digite destino"<< endl;
+			    			cin>>dest;
+			    			cout<<"Digite dia"<<endl;
+			    			cin>>dia;
+			    			cout<<"Digite horainicio"<<endl;
+			    			cin>>horain;
+			    			cout<<"Digite horafin"<< endl;
+			    			cin>>horafin;
+			    			VueloPlaneado vueloplan;
+							vueloplan.codigo =id;
+							vueloplan.origen= ori;
+							vueloplan.destino= dest;
+							vueloplan.dia= dia;
+							vueloplan.horaInicio=horain;
+							vueloplan.horaFin= horafin;
+							//registrarVueloPlaneado(vueloplan);
+							
+							
 		            	break;
 		             }  
 		             case 'B':{
 		                break;
 		             }   
 		              case 'C':{
+		              		cout<<" Registro de aerolinea"<<endl;
+		              		string id,nom;
+		              		int cuenta, avionesdisp;
+		              		cout<<"Digite identificacion"<<endl;
+			    			cin>>id;
+			    			cout<<"Digite nombre"<<endl;
+			    			cin>>nom;
+			    			cout<<"Digite Cuenta de banco"<< endl;
+			    			cin>>cuenta;
+			    			Aerolinea aero;
+							aero.id =id;
+							aero.nombre= nom;
+							aero.cta_banco= cuenta;
+							aero.avionesdisp= 0;
+							registrarAerolinea(aero);
 		                break;
 		             }       
 		             case 'D':{
@@ -43,10 +83,15 @@ class MAerolinea{
 			}
 		 	while (dec!= 'D');
 		}
+		void registrarAerolinea(Aerolinea aero);
 	//	void consultarEquipos();
 	//	void ConsultarJugadores();
 		//Estructuras* retornarObjeto();
 };
+	void MAerolinea::registrarAerolinea(Aerolinea aero){
+		man.registrarAerolinea(aero);
+	}
+	
 /*	Estructuras* MCliente::retornarObjeto(){
 		Estructuras* est= new Estructuras;
 		*est=Es;
