@@ -5,11 +5,9 @@
 #include<conio.h>
 #include<ctype.h>
 #include<string.h> //libreria para modificar el archivo
-#include "Estructuras.cpp"
-#include "GestorUsuario.cpp"
+#include "estructuras.cpp"
 #include "ManejoArchivos.cpp"
-#include "MCliente.cpp"
-#include "MAerolinea.cpp"
+#include "GestorUsuario.cpp"
 #include "lista.h"
 
 Estructuras Es;
@@ -21,16 +19,19 @@ int main(int argc, char** argv) {
 	arch1.cargarUsuario();
 	arch1.cargarCliente();
 	arch1.cargarUsAerolinea();
+	arch1.cargarAerolinea();
+	arch1.cargarAviones();
 	arch1.cargarVuelosPlaneados();
 	arch1.cargarVuelosEspecificos();
 
+	
 	Es=*(arch1.retornarObjeto());
   	char dec; //decision
  	do{
  		system("cls");
  		cout<<"BIENVENIDO AL SISTEMA DE VIAJES "<<endl;
-     	cout<<"A. Entrar como USUARIO"<<endl;
-     	cout<<"B. Ingresar con USUARIO DE AEROLINEA"<<endl;
+     	cout<<"A. Entrar al sistema"<<endl;
+     	cout<<"B. "<<endl;
      	cout<<"C. Sobre La Aplicacion "<<endl;
      	cout<<"D. salir"<<endl;
      	do{
@@ -42,7 +43,7 @@ int main(int argc, char** argv) {
       	while (dec<'A' || dec> 'D'); //este while que encierra el segundo do es para que el programa funcione solo cuando oprima de a a la d
 		switch (dec){
         	case 'A':{
-        		GestorUsuario ges = GestorUsuario(Es);
+        	    GestorUsuario ges = GestorUsuario(Es, arch1);
              	//Es= *(ges.retornarObjeto());
             	break;
              }  
@@ -61,5 +62,4 @@ int main(int argc, char** argv) {
  		}
 	}
  	while (dec!= 'D');
-    
 }
