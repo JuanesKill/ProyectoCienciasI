@@ -21,21 +21,79 @@ class ManejoArchivos{
      	int posicionAux;
      	Estructuras Es;
     public:
+    	
     	ManejoArchivos(Estructuras Est){
     		Es=Est;
+		}
+		ManejoArchivos(){
 		}
 		void cargarUsuario();
     	void cargarCliente();
     	void cargarUsAerolinea();
     	void cargarVuelosPlaneados();
     	void cargarVuelosEspecificos();
+    	void cargarAerolinea();
+    	void cargarAviones();
 		void registrarUsuario(Usuario us);
 		void registrarCliente(Cliente cli);
 		void registrarUsAerolinea(UsAerolinea usaero);
+		void registrarAerolinea(Aerolinea aero);
     	void cargarPasajeros();
     	Estructuras* retornarObjeto();
     	string AsignarGrupo();
 };
+
+	void ManejoArchivos::cargarAviones(){
+			ifstream salida;
+			salida.open ("Aviones.txt", ios::in); 
+	     	if (salida.fail()){
+	      		cout<<"error al abrir el archivo :( "<<endl;
+	      		getch();         
+	     	}
+	     	else{
+	         	salida>>dato1;
+	         while (!salida.eof()) {
+	         	salida>>dato2;
+	            salida>>dato3; 
+	            salida>>dato4;
+				string id(dato1);
+				string idaero(dato2);
+				string tip(dato3);
+				string capacidad(dato4);
+				int capa = atoi(capacidad.c_str());
+				Avion avion;
+				avion.id=id;
+				avion.tipoavion = tip;
+				avion.capacidad= capa;
+				avion.idaerolinea= idaero;
+			/*	int pos=0;
+				while(pos <= capa){
+					Silla *silla = new Silla;
+					silla->id = "A0"+1;
+					silla->estado= "vacia";
+					avion.sillas.insertar_pos(*silla,pos);
+					pos=pos+1;
+				}*/
+				int j=1;
+				avion.idaerolinea=Es.AsignarAerolinea(avion.idaerolinea, avion);
+				//avion.sillas.obtenerDato(1);
+				if(avion.idaerolinea=="na"){
+				cout<<"el avion no tiene aerolinea"<<endl;
+				}
+				else{
+					cout<<" el id de la aerolinea es "<<avion.idaerolinea << endl;
+				}
+            	x=x+1;
+            	salida>>dato1;
+         	}
+	        cout<<"los aviones son "<<x<<endl;
+	        salida.close (); 
+	     }
+	     x=0;
+	     j=0;
+	     getch ();
+	
+	}
 
 	void ManejoArchivos::cargarUsuario(){
 			ifstream salida;
@@ -158,6 +216,43 @@ class ManejoArchivos{
      j=0;
      getch ();
 	} 
+	void ManejoArchivos::cargarAerolinea(){
+			ifstream salida;
+			salida.open ("Aerolinea.txt", ios::in); 
+	     	if (salida.fail()){
+	      		cout<<"error al abrir el archivo :( "<<endl;
+	      		getch();         
+	     	}
+	     	else{
+	         	salida>>dato1;
+	         while (!salida.eof()) {
+	         	salida>>dato2;
+	            salida>>dato3;
+	            salida>>dato4;
+				string id(dato1);
+				string nombre(dato2);
+				string avionesdisp(dato3);
+				string cuent(dato4);
+				int avionesdispo = atoi(avionesdisp.c_str());
+ 				int cuenta = atoi(cuent.c_str());
+				Aerolinea aerolinea;
+				aerolinea.id=id;
+				aerolinea.avionesdisp = avionesdispo;
+				aerolinea.nombre= nombre;
+				aerolinea.cta_banco=cuenta;
+				int j=1;
+				Es.insertarAerolinea(aerolinea,j);
+	            x=x+1;
+	            j=j+1;
+	            salida>>dato1;
+	         }
+	         cout<<"las aerolineas son "<<x<<endl;
+	         salida.close (); 
+	     }
+	     x=0;
+	     j=0;
+	     getch ();
+	}
 	void ManejoArchivos::cargarVuelosPlaneados(){
 		ifstream salida; //para leer lo que esta en el archivo con una funcion que llame salida
 		salida.open ("vuelosplaneados.txt", ios::in); //abrimos el archivo
@@ -220,20 +315,23 @@ class ManejoArchivos{
      		int h=1;
          	salida>>dato1;//aqui leemos primero el nombre del lobro antes del white por lo siguiente:
          while (!salida.eof()) //(esto significa que recorre el archivo hasta el final)
-         {
+         	{
+         	salida>>dato2;
+         	salida>>dato3;
+         	salida>>dato4;
+         	salida>>dato5;
          	string codigo(dato1);
-  			string numSillasDispo(dato2);
-  			string fecha(dato3);
- 			string tipoavion(dato4);
- 			string adutarifa(dato5);
- 			string nintarifa(dato6);
+  			string numSillasDispo(dato3);
+  			string fecha(dato2);
+ 			string adutarifa(dato4);
+ 			string nintarifa(dato5);
   			int numSillasDisp = atoi(numSillasDispo.c_str());
  			int adtarifa = atoi(adutarifa.c_str());
  			int nitarifa = atoi(nintarifa.c_str());
+ 			VueloEspecifico vueloespecifico;
   			vueloespecifico.codigo= codigo;
   			vueloespecifico.numSillasDisp= numSillasDisp;
   			vueloespecifico.fecha= fecha;
- 			vueloespecifico.tipoavion= tipoavion;
  			vueloespecifico.adtarifa= adtarifa;
  			vueloespecifico.nitarifa= nitarifa;
   			cout<< "codigo: "<< vueloespecifico.codigo<<endl;
@@ -242,9 +340,9 @@ class ManejoArchivos{
  				cout<<"el vuelo especifico no tiene vuelo planeado"<<endl;
 			 }
 			 else{
-			 	cout<<vueloespecifico.vueloplan->codigo<<" "<<vueloespecifico.vueloplan->destino<<" "<<vueloespecifico.vueloplan->origen<<" "<<vueloespecifico.vueloplan->dia<<" "<<vueloespecifico.vueloplan->horaInicio<<" "<<vueloespecifico.vueloplan->horaFin<<" "<<vueloespecifico.vueloplan->precio<<endl;	
+			 	cout<<vueloespecifico.vueloplan->codigo<<" "<<vueloespecifico.vueloplan->destino<<" "<<vueloespecifico.vueloplan->origen<<" "<<vueloespecifico.vueloplan->dia<<" "<<vueloespecifico.vueloplan->horaInicio<<" "<<vueloespecifico.vueloplan->horaFin<<" "<<endl;	
 			 }
-			 Es.insertarVueloEspecifico(vueloespecifico,h);
+			Es.insertarVueloEspecifico(vueloespecifico,h);
             x=x+1;
             h=h+1;
             salida>>dato1;
@@ -264,12 +362,11 @@ class ManejoArchivos{
 	      		getch();         
 	     	}
 	     	else{
-	         	entrada<<us.id;
-	         	while (!entrada.eof()) {
-	         	entrada<<us.tipoUsuario;
-	            entrada<<us.clave; 
-	            
-	         }
+	         	entrada<<"\n"<<us.id<<" ";
+	         	entrada<<us.tipoUsuario<<" ";
+	            entrada<<us.clave<<" "; 
+	            Es.insertarUsuario(us,j+1);
+	         
 	         cout<<"el id de registro es "<<us.id<<endl;
 	         entrada.close (); 
 	     }
@@ -283,13 +380,14 @@ class ManejoArchivos{
       		getch();         
      	}
      	else{
-         	entrada<<cli.id;
-         while (!entrada.eof()) {
-         	entrada<<cli.nombre;
-            entrada<<cli.apellidos;
-			entrada<<cli.edad; 
-			entrada<<cli.sexo;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
-         }
+         	entrada<<"\n"<<cli.id<<" ";
+         	entrada<<cli.nombre<<" ";
+            entrada<<cli.apellidos<<" ";
+            entrada<<cli.sexo<<" ";//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+			entrada<<cli.edad<<" "; 
+			cli.usuario= Es.AsignarUsuario(cli.id);
+			Es.insertarCliente(cli,j+1);        
+		 
          cout<<"el id de cliente es"<<cli.id<<endl;
          entrada.close (); 
      }
@@ -303,14 +401,34 @@ class ManejoArchivos{
       		getch();         
      	}
      	else{
-         	entrada<<usaero.id;
-         while (!entrada.eof()) {
-         	entrada<<usaero.nombre;
-            entrada<<usaero.apellidos;
-			entrada<<usaero.edad; 
-			entrada<<usaero.sexo;//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
-         }
+         	entrada<<"\n"<<usaero.id<<" ";
+         	entrada<<usaero.nombre<<" ";
+            entrada<<usaero.apellidos<<" ";
+			entrada<<usaero.edad<<" "; 
+			entrada<<usaero.sexo<<" ";//si dentro del else se lee el primer dato  va a repetir el ultimo libro dos veces no se por que xD
+         	usaero.usuario= Es.AsignarUsuario(usaero.id);
+         	Es.insertarusAerolinea(usaero, j+1);
+		 
          cout<<"el id del usuario de aerolinea es"<<usaero.id<<endl;
+         entrada.close (); 
+     }
+     getch ();
+	}
+	void ManejoArchivos::registrarAerolinea(Aerolinea aero){
+		ofstream entrada;
+		entrada.open ("Aerolinea.txt", ios::app); 
+     	if (entrada.fail()){
+      		cout<<"error al abrir el archivo :( "<<endl;
+      		getch();         
+     	}
+     	else{
+         	entrada<<"\n"<<aero.id<<" ";
+         	entrada<<aero.nombre<<" ";
+            entrada<<aero.avionesdisp<<" ";
+			entrada<<aero.cta_banco<<" "; 
+         	Es.insertarAerolinea(aero, j+1);
+		 	
+         cout<<"el id de la aerolinea es"<<aero.id<<endl;
          entrada.close (); 
      }
      getch ();
