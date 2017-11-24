@@ -6,7 +6,7 @@ struct Usuario {
 };
 
 struct UsAerolinea {
-	string id,	nombre,apellidos, sexo, edad;
+	string id,	nombre,apellidos, sexo, edad, idaerolinea;
 	Usuario* usuario;
 };
 
@@ -21,8 +21,8 @@ struct Pasajero {
 };
 
 struct Silla{
-	string id,estado;
-	Silla* sig;
+	int id;
+	string estado;
 	
 };
 
@@ -42,9 +42,8 @@ struct Avion{
 	
 };
 
-struct VueloPlaneado { //registrar vuelos planeados en el archivo;
-	string codigo, origen, destino, dia, horaInicio, horaFin;
-	//Lista<Silla> sillas;
+struct VueloPlaneado { 
+	string codigo, origen, destino, dia, horaInicio, horaFin, idaerolinea;
 	
 };
 
@@ -64,6 +63,7 @@ struct Aerolinea{ //Funcion registrar aerolinea desde los archivos;
 	int avionesdisp, cta_banco;
 	itnr* itnrcompleto;
 	Lista<Avion> aviones;
+	
 }; 
 
 
@@ -77,6 +77,7 @@ class Estructuras{
 		Lista<Cliente> clientes;
 		Lista<Pasajero> pasajeros;
 		Lista<Silla> sillas ;
+		Lista<Avion> aviones;
 //		Lista<Vuelo> vuelos;
 		Lista<VueloPlaneado> vuelosPlaneados;
 		Lista<VueloEspecifico> vuelosEspecificos;
@@ -90,18 +91,22 @@ class Estructuras{
 		//void InsertarVuelo(Vuelo vuelo, int pos);
 		void InsertarPasajero(Pasajero pasajero, int pos);
 		void insertarAerolinea(Aerolinea aerolinea, int pos);
-		void insertarVueloPlaneado(VueloPlaneado vueloplan, int pos);
-		void insertarVueloEspecifico(VueloEspecifico vueloesp, int pos);
+		void insertarVueloPlaneado(VueloPlaneado vueloplan);
+		void insertarVueloEspecifico(VueloEspecifico vueloesp);
+		Silla CrearSilla(int dato);
 		void EliminarVueloPlaneado(string codigo);
 		void EliminarVueloEspecifico(string codigo);
 		void EliminarPasajero(string nombre, string );
-		void insertarAvion();
+		void InsertarAvion(Avion avion, int pos);
 		string AsignarAerolinea(string dato, Avion avion);
 		Usuario* AsignarUsuario(string dato);
 		VueloPlaneado* AsignarvueloPlan(string dato);
 		itnr* AsignarItinerario(string dato);
 		Cliente* AsignarCliente(string dato);
 		UsAerolinea* AsignarUsAerolinea(string dato);
+		Aerolinea* obtenerAerolinea(string dato, int pos);
+		VueloPlaneado* Obtenervueloplan(string dato, int pos);
+		Avion* Obteneravion(string dato, int pos, int op);
 	  /*  
 	    ProgramacionF1* ObtenerProgramacion(string dato, int pos, int op);
 	   ProgramacionF2* ObtenerProgramacion2(string dato, int pos, int op);
@@ -112,10 +117,23 @@ class Estructuras{
 		Estadios* ObtenerEstadio(string dato, int pos, int op);
 		Equipos* ObtenerEquipo(string dato, int op, int pos);
 		Grupos* ObtenerGrupo(string dato, int pos, int op);*/
-	/*	int AuxPos();
+		int AuxPos();
+		/*
 		int faseDos();
 		int finTorneo();*/
 };
+
+	Silla Estructuras::CrearSilla(int datoi){
+		Silla s;
+		s.id=datoi;
+		s.estado="disponible";	
+		return s;	
+	}
+	void Estructuras::InsertarAvion(Avion avion, int pos){
+		aviones.insertar_pos(avion, pos);
+		cout<<"El tamaño de la lista de aviones es: "<<aviones.tamano_lista()<<endl;
+	} 
+
 	void Estructuras::insertarUsuario(Usuario usuario, int pos){
 		usuarios.insertar_pos(usuario, pos);
 		cout<<"El tamaño de la lista de usuarios es: "<<usuarios.tamano_lista()<<endl;
@@ -134,12 +152,12 @@ class Estructuras{
 		cout<<"El tamaño de la lista de aerolineas es: "<<aerolineas.tamano_lista()<<endl;
 	}
 	
-	void Estructuras::insertarVueloPlaneado(VueloPlaneado vueloplan, int pos){
-		vuelosPlaneados.insertar_pos(vueloplan, pos);
+	void Estructuras::insertarVueloPlaneado(VueloPlaneado vueloplan){
+		vuelosPlaneados.insertar_final(vueloplan);
 		cout<<"El tamaño de la lista vuelos planeados es: "<<vuelosPlaneados.tamano_lista()<<endl;
 	}
-	void Estructuras::insertarVueloEspecifico(VueloEspecifico vueloespe, int pos){
-		vuelosEspecificos.insertar_pos(vueloespe, pos);
+	void Estructuras::insertarVueloEspecifico(VueloEspecifico vueloespe){
+		vuelosEspecificos.insertar_final(vueloespe);
 		cout<<"El tamaño de la lista vuelos especificos es: "<<vuelosEspecificos.tamano_lista()<<endl;
 	}
 	
@@ -220,11 +238,86 @@ class Estructuras{
 				return "na";
 			}
 		}
-		 aerolinea->aviones.insertar_final(avion);
-		 aerolinea->avionesdisp= aerolinea->avionesdisp+1;
-		 return aerolinea->id;
+		/**int pos=aerolinea->aviones.tamano_lista()+1;
+		cout<<pos;
+		cout<<aerolinea->aviones.tamano_lista();
+		aerolinea->avionesdisp= aerolinea->avionesdisp+1;*/
+		aerolinea->aviones.insertar_final(avion);
+		return aerolinea->id;
 	}
-	
+	Aerolinea* Estructuras::obtenerAerolinea(string dato, int pos){
+		int i=1;
+		Aerolinea* aero = new Aerolinea;
+		*aero=aerolineas.obtenerDato(i);
+		while(aero->id != dato){
+			if(i<aerolineas.tamano_lista()){
+				i++;
+				*aero= aerolineas.obtenerDato(i);
+			}
+			else{
+				cout<<"no hay aerolineas";
+				return NULL;
+			}
+		}
+		 return aero;
+	}
+	VueloPlaneado* Estructuras::Obtenervueloplan(string dato,int pos){
+		VueloPlaneado* vuelop= new VueloPlaneado;
+		/*if(op==1){
+			if(pos<=vuelosPlaneados.tamano_lista()){
+				*vuelop=vuelosPlaneados.obtenerDato(pos);
+			 	return vuelop;
+			}
+			else {
+				return NULL;
+			}
+		}*/
+		//if(op==2){
+			*vuelop= vuelosPlaneados.obtenerDato(pos);
+			while(vuelop->idaerolinea != dato){
+				if(pos<=vuelosPlaneados.tamano_lista()){
+					pos++;
+					*vuelop= vuelosPlaneados.obtenerDato(pos);
+				}
+				else{
+					return NULL;
+				}
+			}
+			posicionAux=pos;
+			return vuelop;
+		//}
+	}
+	Avion* Estructuras::Obteneravion(string dato,int pos, int op){
+		Avion* av= new Avion;
+		if(op==1){
+			*av= aviones.obtenerDato(pos);
+			while(av->idaerolinea != dato){
+				if(pos<=aviones.tamano_lista()){
+					pos++;
+					*av= aviones.obtenerDato(pos);
+				}
+				else{
+					return NULL;
+				}
+			}
+			posicionAux=pos;
+			return av;
+		}
+		if(op==2){
+			*av= aviones.obtenerDato(pos);
+			while(av->id != dato){
+				if(pos<=aviones.tamano_lista()){
+					pos++;
+					*av= aviones.obtenerDato(pos);
+				}
+				else{
+					return NULL;
+				}
+			}
+			posicionAux=pos;
+			return av;
+		}
+	}
 	/*itnr* Estructuras::AsignarItinerario(string dato){
 		int i=1;
 		itnr *itin= new itnr;
@@ -662,17 +755,17 @@ class Estructuras{
 			 return es;
 		}
 		return NULL;
-	}
+	}*/
 	
 	int Estructuras::AuxPos(){
 		return posicionAux;
 	}
-	
+	/*
 	int Estructuras::faseDos(){
 		int aux;
 		aux= listaPartidos.tamano_lista();
 		return aux;
-	}
+}
 	
 	int Estructuras::finTorneo(){
 		int aux;
